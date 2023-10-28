@@ -23,3 +23,8 @@ The ```POST:/auth``` and ```GET:/.well-known/jwks.json``` endpoints have been up
   <li>All valid (non-expired) private keys are read from the DB.</li>
   <li>A JWKS response is created from those private keys.</li>
 </ul>
+
+#### Server Usage Requirements:
+pip install cryptography==41.0.4
+<br>
+pip install pyjwt==2.8.0
