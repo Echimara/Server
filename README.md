@@ -24,6 +24,7 @@ The ```POST:/auth``` and ```GET:/.well-known/jwks.json``` endpoints have been up
   <li>A JWKS response is created from those private keys.</li>
 </ul>
 
+Linting was achieved using VS Code's extension, _PyLint_.
 #### Server Usage Requirements:
 pip install cryptography==41.0.4
 <br>
