@@ -73,6 +73,13 @@ expired_pem = expired_key.private_bytes(
 save_private_key_to_db(pem, int(datetime.datetime.timestamp(datetime.datetime.now())))
 save_private_key_to_db(expired_pem, int(datetime.datetime.timestamp(datetime.datetime.now() + datetime.timedelta(hours=1))))
 
+# function to close the database connection
+def close_database_connection():
+    try:
+        connection_obj.close()
+        print("Database connection closed.")
+    except Exception as e:
+        print(f"Error closing database connection: {e}")
 numbers = private_key.private_numbers()
 
 def int_to_base64(value):
@@ -129,7 +136,11 @@ class MyServer(BaseHTTPRequestHandler):
 
         self.send_response(405)
         self.end_headers()
-        return
+    except Exception as e:
+            print(f"Error processing POST request: {e}")
+            self.send_response(500)
+            self.end_headers()
+            return
 
     def do_GET(self):
         if self.path == "/.well-known/jwks.json":
@@ -157,12 +168,13 @@ class MyServer(BaseHTTPRequestHandler):
 
 
 if __name__ == "__main__":
-    webServer = HTTPServer((hostName, serverPort), MyServer)
+    webServer = HTTPServer(("localhost", 8080), MyServer)
     try:
         webServer.serve_forever()
     except KeyboardInterrupt:
         pass
-
-    webServer.server_close()
+    finally:
+        webServer.server_close()
+        close_database_connection()
 
 
