@@ -1,7 +1,5 @@
-# Name: Chimara Okeke
+# auth: Chimara Okeke
 # Date: 12/2/2023
-# Class: CSCE3550.001
-# Project 3
 
 # required libraries
 from http.server import BaseHTTPRequestHandler, HTTPServer
